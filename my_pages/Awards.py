@@ -9,8 +9,6 @@ def showImage():
 
     award_id = st.number_input("Enter Award ID", min_value=1, step=1)
     if st.button("Fetch Image"):
-        print("button pressed")
-        st.write("button pressed...")
         record = fetch_image(award_id)
         try:
             st.write(f"Award ID entered: {award_id}")

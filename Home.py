@@ -17,10 +17,7 @@ from my_utils.dbConn import create_connection
 # Load custom CSS
 if "conn" not in st.session_state or st.session_state.conn is None:
     st.session_state.conn = create_connection()
-# Initialize session state for page navigation
-print("connection")
 if "user" not in st.session_state:
-    print("trying")
     st.session_state.page = "login"
 else:
     if 'page' not in st.session_state:

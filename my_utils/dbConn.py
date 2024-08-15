@@ -12,8 +12,6 @@ def create_connection():
             user='root',
             password=''
         )
-        print(connection, "successful")
     except Error as e:
         st.error(f"Error connecting to MySQL: {e}")
-        print(f"Error connecting to MySQL: {e}")
     return connection
