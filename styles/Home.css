@@ -1,0 +1,20 @@
+.stButton button {
+    /*background-color: #4CAF50;  Green background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    /* padding: 10px 24px;  Some padding */
+    width: 100%;
+    text-align: center; /* Centered text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Make the buttons appear side by side */
+    font-size: 16px; /* Increase font size */
+    margin: 4px 2px; /* Some margin */
+    cursor: pointer; /* Pointer/hand icon */
+    border-radius: 8px; /* Rounded corners */
+    transition-duration: 0.4s; /* 0.4 seconds transition effect to hover state */
+}
+.stButton button:hover {
+    background-color: #ffffff88; /* White background on hover */
+    color: black; /* Black text on hover */
+    border: 2px solid #4CAF50; /* Green border on hover */
+}

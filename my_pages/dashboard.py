@@ -1,4 +1,7 @@
 import streamlit as st
+from my_utils.funcs import *
+
+load_css("styles/dashboard.css")
 
 def show_dashboard():
     st.title("Dashboard")
