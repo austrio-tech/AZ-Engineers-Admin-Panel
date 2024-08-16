@@ -7,7 +7,7 @@ import io
 def showImage():
     st.title("View Award Image")
 
-    award_id = st.number_input("Enter Award ID", min_value=1, step=1)
+    award_id = st.number_input("Enter Award ID", min_value=0, step=1)
     if st.button("Fetch Image"):
         record = fetch_image(award_id)
         try:

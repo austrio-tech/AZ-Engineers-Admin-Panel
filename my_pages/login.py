@@ -27,8 +27,6 @@ def Login():
                 a.progress(i)
             time.sleep(0.3)
             st.session_state.user = username
-            st.session_state.page = "Dashboard"
             st.rerun()
-            # Display the admin panel
         else:
             st.error("Invalid username or password")
