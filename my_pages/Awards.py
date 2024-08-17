@@ -1,8 +1,8 @@
 import streamlit as st
 from my_utils.ImgCtrt import fetch_image
-
 from PIL import Image
 import io
+
 
 def showImage():
     st.title("View Award Image")

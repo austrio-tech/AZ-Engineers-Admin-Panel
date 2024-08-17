@@ -1,5 +1,7 @@
 import streamlit as st
+
 # from my_utils.Urls import Urls
+
 
 def dbAccess(func):
     def wrapper(*args, **kwargs):
@@ -14,4 +16,5 @@ def dbAccess(func):
             st.error(f"Failed to insert user into the database: {e}")
             return None
         return None
+
     return wrapper

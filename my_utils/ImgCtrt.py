@@ -1,6 +1,7 @@
 # Function to fetch image from MySQL
 from my_utils.services import dbAccess
 
+
 @dbAccess
 def fetch_image(cursor, award_id):
     if cursor:

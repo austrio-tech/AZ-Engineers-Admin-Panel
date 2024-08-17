@@ -1,15 +1,16 @@
 import streamlit as st
 import time
+
 # Hardcoded credentials (username: admin, password: password)
-USER_CREDENTIALS = {
-    "admin": "password"
-}
+USER_CREDENTIALS = {"admin": "password"}
+
 
 def login(username, password):
     """Check if the provided credentials are correct."""
     if USER_CREDENTIALS.get(username) == password:
         return True
     return False
+
 
 def Login():
     st.title("Admin Panel")
