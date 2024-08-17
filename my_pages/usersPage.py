@@ -1,39 +1,46 @@
 import streamlit as st
-from my_utils.users import *
-import pandas as pd
-def manage_users():
+from my_utils.openPage import OpenPage
+
+def manage_users(user=None, form=None):
     st.title("User Management")
     st.write("Manage the users of your platform.")
-
-    # if st.button("Add User"):
-    #     st.session_state.form = "Add-User"
-    #     st.rerun()
-    # Create a row of buttons using columns
-
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
         if st.button("Add User"):
-            st.session_state.form = "Add-User"
-            st.rerun()
+            form = "add"
 
-    # with col2:
-    #     if st.button("Update User"):
-    #         st.session_state.form = "Update-User"
-    #         st.rerun()
+    with col2:
+        if st.button("Update User"):
+            form = "update"
 
     with col3:
         if st.button("Read User"):
-            st.session_state.form = "Read-User"
-            st.rerun()
+            form = "read"
 
     with col4:
         if st.button("Read all Users"):
-            st.session_state.form = "Read-All-User"
-            st.rerun()
-    if "form" not in st.session_state:
-        ...
-    elif st.session_state.form == "Add-User":
+            form = "readAll"
+
+    if form : st.session_state['form'] = form
+    OpenPage(user_menu, user=user, form=form)
+
+import pandas as pd
+# from my_utils.goTo import GoTo
+from my_utils.users import CreateUser, ReadUser, ReadAllUsers
+
+# def editUser(id):
+#     print(id, 'id')
+#     GoTo('users', user=id)
+
+def user_menu(user=None, form=None):
+    print(user, form)
+    if not form:
+        print()
+        if 'form' in st.session_state:
+            form = st.session_state.form
+
+    if form == "add":
         with st.form("add_user"):
             first_name = st.text_input("First Name")
             last_name = st.text_input("Last Name")
@@ -56,44 +63,41 @@ def manage_users():
                 else:
                     st.error("Please fill all the fields.")
 
-    elif st.session_state.form == "Update-User":
+    elif form == "update":
         st.write("Remove user functionality goes here.")
 
-    elif st.session_state.form == "Read-User":
-        user_id = st.text_input("Enter user ID:")
-        if user_id:
-            user_id = int(user_id)
-            user = ReadUser(user_id)
-            if user:
-                st.write(f"User ID: {user.id}")
-                st.write(f"First Name: {user.first_name}")
-                st.write(f"Last Name: {user.last_name}")
-                st.write(f"Email: {user.email}")
-                st.write(f"Role: {user.role}")
-                st.write(f"Last Edit: {user.last_edit}")
-                st.write(f"Status: {'Active' if user.status else 'Inactive'}")
-                if user.profilePic:
-                    st.image(user.profilePic)
+    elif form == "read":
+        user_id = st.text_input("Enter user ID:", key='readUser')
+        if user:
+            User = ReadUser(user)
+            if User:
+                st.write(f"User ID: {User.id}")
+                st.write(f"First Name: {User.first_name}")
+                st.write(f"Last Name: {User.last_name}")
+                st.write(f"Email: {User.email}")
+                st.write(f"Role: {User.role}")
+                st.write(f"Last Edit: {User.last_edit}")
+                st.write(f"Status: {'Active' if User.status else 'Inactive'}")
+                if User.profilePic:
+                    st.image(User.profilePic)
             else:
                 st.error("User not found.")
+        if user_id:
+            # editUser(user_id)
+            user_id = int(user_id)
+            st.query_params['user'] = user_id
+            # ag = {'user': user_id}
+            # print(ag, "ag")
+            # GoTo("users", form='read', **ag)
 
-    elif st.session_state.form == "Read-All-User":
+    elif form == "readAll":
         users = ReadAllUsers()
+        print("reading all users")
         if users:
             df = pd.DataFrame([user.__dict__ for user in users])
             df = df[['id',"first_name", "last_name", "email", "role", "last_edit", "status"]]
-            # st.dataframe(df, hide_index=True)
-            st.markdown("### Users List")
-            table_md = "| ID | First Name | Last Name | Email | Role | Last Edit | Status | Action |\n"
-            table_md += "|---|------------|-----------|-------|------|-----------|--------|--------|\n"
-            for _, row in df.iterrows():
-                edit_link = f"[Edit](http://localhost:8501/?edit_user_id={row['id']})"
-                table_md += f"| {row['id']} | {row['first_name']} | {row['last_name']} | {row['email']} | {row['role']} | {row['last_edit']} | {row['status']} | {edit_link} |\n"
-
-            st.markdown(table_md, unsafe_allow_html=True)
-            query_params = st.query_params
-            if 'edit_user_id' in query_params:
-                user_id = int(query_params['edit_user_id'])
-                st.write(f"Editing user with ID: {user_id}")
+            st.dataframe(df, hide_index=True)
+        else:
+            st.error("No users found.")
 
     
