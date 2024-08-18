@@ -27,6 +27,8 @@ def Urls():
                     OpenPage(manage_users)
             case "settings":
                 OpenPage(show_settings)
+            case "home":
+                OpenPage()
             case "awards":
                 OpenPage(showImage)
             case "login":
@@ -34,7 +36,8 @@ def Urls():
             case _:
                 st.error("Invalid page selected.")
     else:
-        OpenPage()
+        # OpenPage()
+        st.error("page not found")
 
 
 def refreshPageOnUrl(func):
@@ -49,13 +52,15 @@ def refreshPageOnUrl(func):
     return wrapper
 
 
-@refreshPageOnUrl
+# @refreshPageOnUrl
 def GoTo(page=None, **kwargs):
     st.query_params.clear()
     if page:
         st.query_params["p"] = page
         for key, value in kwargs.items():
             st.query_params[key] = value
+    else:
+        st.query_params["p"] = "home"
 
 
 if "conn" not in st.session_state or st.session_state.conn is None:
@@ -63,11 +68,16 @@ if "conn" not in st.session_state or st.session_state.conn is None:
         st.session_state.conn = create_connection()
     except Exception as e:
         st.error(f"An error occured while connecting with database: {e}")
+
 if "user" not in st.session_state:
     GoTo("login")
+    Urls()
+
 else:
     if "p" not in st.query_params or st.query_params["p"] == "login":
         GoTo()
+    else:
+        ...
     if st.sidebar.button("Dashboard"):
         GoTo()
     if st.sidebar.button("User Management"):
@@ -76,5 +86,7 @@ else:
         GoTo("awards")
     if st.sidebar.button("Settings"):
         GoTo("settings")
+
+    Urls()
 
 load_css("styles/Home.css")

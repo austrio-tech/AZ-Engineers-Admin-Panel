@@ -1,7 +1,5 @@
 import streamlit as st
 
-# from my_utils.Urls import Urls
-
 
 def dbAccess(func):
     def wrapper(*args, **kwargs):

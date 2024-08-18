@@ -1,6 +1,7 @@
 import streamlit as st
+import pandas as pd
 from my_utils.openPage import OpenPage
-
+from my_utils.users import CreateUser, ReadUser, ReadAllUsers
 
 def manage_users(user=None, form=None):
     st.title("User Management")
@@ -24,26 +25,17 @@ def manage_users(user=None, form=None):
             form = "readAll"
 
     if form:
-        st.session_state["form"] = form
+        # st.session_state["form"] = form
+        st.query_params['action'] = form
     OpenPage(user_menu, user=user, form=form)
-
-
-import pandas as pd
-
-# from my_utils.goTo import GoTo
-from my_utils.users import CreateUser, ReadUser, ReadAllUsers
-
-# def editUser(id):
-#     print(id, 'id')
-#     GoTo('users', user=id)
 
 
 def user_menu(user=None, form=None):
     print(user, form)
     if not form:
         print()
-        if "form" in st.session_state:
-            form = st.session_state.form
+        if "action" in st.query_params:
+            form = st.query_params.action
 
     if form == "add":
         with st.form("add_user"):
@@ -95,12 +87,11 @@ def user_menu(user=None, form=None):
             else:
                 st.error("User not found.")
         if user_id:
-            # editUser(user_id)
             user_id = int(user_id)
-            st.query_params["user"] = user_id
-            # ag = {'user': user_id}
-            # print(ag, "ag")
-            # GoTo("users", form='read', **ag)
+            print(user_id, st.query_params)
+            if 'user' not in st.query_params or int(st.query_params["user"]) != user_id:
+                st.query_params["user"] = user_id
+                st.rerun()
 
     elif form == "readAll":
         users = ReadAllUsers()
@@ -121,3 +112,4 @@ def user_menu(user=None, form=None):
             st.dataframe(df, hide_index=True)
         else:
             st.error("No users found.")
+    
