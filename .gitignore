@@ -1,0 +1,179 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+
+# If you are using Django migrations
+migrations/
+
+# Environment variables
+.env
+.env.*
+
+# Secrets
+secrets.json
+
+# Local development settings
+settings_local.py
+
+# Django static files
+staticfiles/
+static/
+
+# Media files (uploaded content)
+media/
+
+# Jupyter Notebook stuff
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Mac OS
+.DS_Store
+
+# Backup files
+*.bak
+
+# MySQL dumps
+*.sql
+*.mysql
+
+# Postgres dumps
+*.psql
+
+# Vagrant
+.vagrant/
+
+# PyCharm
+.idea/
+
+# Sphinx documentation
+docs/_build/
+doc/_build/
+
+# Coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Testing results
+*.log
+*.out
+*.log.bak
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Pycharm
+.idea/
+
+# pyenv
+.python-version
+
+# VSCode
+.vscode/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Virtualenv
+*.swp
+*.swo
+*.~undo-tree~
+
+# Logs and databases
+*.log
+*.sqlite3
+db.sqlite3
+
+# Unit test / coverage reports
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Test data
+*.dat
+*.csv
+*.tsv
+*.pgn
+*.pgm
+*.pgf
+*.aux
+
+# mypy
+.mypy_cache/
+
+# Pyright
+.pyright/
+
+# Pytest
+.pytest_cache/
+
+# Caches
+.cache/
+
+# Node
+node_modules/
+
+# Backup files
+*~
+
+# Editor artifacts
+*.swp
+*.swo
+*~
+.fuse_hidden*
+.idea/
+.project
+.pydevproject
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
