@@ -1,8 +1,7 @@
-{% extends "base.html" %}{% load static %} {% block title %}User Details 
-{% endblock %} {% block style %}
+{% extends "base.html" %}{% load static %}
+{% block title %}User Details {% endblock %} {% block style %}
 <link rel="stylesheet" href="{% static 'css/read_user.css' %}" />
-  {%endblock%}
-{% block content %}
+{%endblock%} {% block content %}
 <h2>User Details</h2>
 <table>
   <tr>
@@ -33,15 +32,23 @@
 {% if profile_pic %}
 <p><strong>Profile Picture:</strong></p>
 <!-- Display the image using the base64 encoded string -->
-<img src="data:image/jpeg;base64,{{ profile_pic }}" alt="Profile Picture" />
-<p>
-  <a href="" class="btn btn-primary">Edit</a>
-  <a href="" class="btn btn-danger">Remove</a>
-  <a href="" class="btn btn-warning">Change Password</a>
-</p>
-{% endif %} {% endblock %}
-
-
-{% comment %} {% url 'update_user' user.id %}
-{% url 'remove_user' user.id %}
-{% url 'change_password' user.id %} {% endcomment %}
+<img src="data:image/jpeg;base64,{{ profile_pic }}" alt="Profile Picture" /> {% endif %}
+<a href="/update/{{user.id}}" class="btn btn-sm btn-primary btn-xs">Edit</a>
+{% if user.status == 1 %}
+<form method="post" style="display:inline;">
+  {% csrf_token %}
+  <input type="hidden" name="user_id" value="{{ user.id }}">
+  <input type="hidden" name="new_status" value="0">
+  <button type="submit" class="btn btn-sm btn-danger btn-xs">Remove</button>
+</form>
+{% else %}
+<form method="post" style="display:inline;">
+  {% csrf_token %}
+  <input type="hidden" name="user_id" value="{{ user.id }}">
+  <input type="hidden" name="new_status" value="1">
+  <button type="submit" class="btn btn-sm btn-success btn-xs">Activate</button>
+</form>
+{% endif %}
+<a href="" class="btn btn-sm btn-warning">Change Password</a>
+ {% endblock %} {% comment %} {% url 'update_user' user.id %} {% url
+'remove_user' user.id %} {% url 'change_password' user.id %} {% endcomment %}

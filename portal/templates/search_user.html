@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Search User{% endblock %} 
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/search_user.css' %}" />
+{% endblock %}
+
+{% block content %}
+<h2>Search User</h2>
+<form method="get" action="{% url 'search-user' %}">
+  <p>
+    <label for="search_query">Search by ID or Name:</label>
+    <input type="text" name="search_query" id="search_query" placeholder="Enter User ID or Name" />
+  </p>
+  <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+{% if user %}
+  <h3>User Details</h3>
+  <p><strong>ID:</strong> {{ user.id }}</p>
+  <p><strong>First Name:</strong> {{ user.first_name }}</p>
+  <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+  <p><strong>Email:</strong> {{ user.email }}</p>
+  <p><strong>Role:</strong> {{ user.role }}</p>
+  <p><strong>Status:</strong> {{ user.status|yesno:"Active,Inactive" }}</p>
+  {% if user.profile_pic %}
+    <p><strong>Profile Picture:</strong></p>
+    <img src="data:image/jpeg;base64,{{ user.profile_pic|b64encode }}" alt="Profile Picture" style="max-width: 150px; border-radius: 50%;">
+  {% endif %}
+{% elif search_query %}
+  <p>No user found with that ID or Name.</p>
+{% endif %}
+{% endblock %}

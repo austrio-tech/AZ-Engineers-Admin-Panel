@@ -1,58 +1,5 @@
 {% extends "base.html" %}{% load static %}
-{% comment %} 
-{% block title %}All Users{% endblock %}
-{% block style %}
-<link rel="stylesheet" href="{% static 'css/read_all_users.css' %}" />
-{%endblock%} 
-
-{% block content %}
-  <h2>All Users</h2>
-  {% if users %}
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Last Edit</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for user in users %}
-        <tr onclick="window.location.href = '/read/{{user.id}}';">
-          <td>{{ user.id }}</td>
-          <td>{{ user.first_name }}</td>
-          <td>{{ user.last_name }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.role }}</td>
-          <td>{{ user.last_edit }}</td>
-          <td>{{ user.status|yesno:"Active,Inactive" }}
-            
-          </td>
-          <td>
-            <a href="" class="btn btn-sm btn-primary btn-xs">Edit</a>
-            {% if user.status == 1 %}
-            <a href="" class="btn btn-sm btn-danger btn-xs">Remove</a>
-            {% else %}
-            <a href="/activate/{{user.id}}" class="btn btn-sm btn-success btn-xs">Activate</a>
-            {% endif %}
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <p>No users found.</p>
-  {% endif %}
-{% endblock %} {% endcomment %}
-{% comment %} {% url 'update_user' user.id %}
-{% url 'remove_user' user.id %} {% endcomment %}
-
-{% load custom_filters %}  <!-- Load the custom filter -->
+{% load custom_filters %}  
 {% block title %}All Users{% endblock %}
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/read_all_users.css' %}" />
@@ -93,11 +40,21 @@
           <td>{{ user.last_edit }}</td>
           <td>{{ user.status|yesno:"Active,Inactive" }}</td>
           <td>
-            <a href="" class="btn btn-sm btn-primary btn-xs">Edit</a>
+            <a href='/update/{{user.id}}' class="btn btn-sm btn-primary btn-xs">Edit</a>
             {% if user.status == 1 %}
-            <a href="" class="btn btn-sm btn-danger btn-xs">Remove</a>
+            <form method="post" style="display:inline;">
+              {% csrf_token %}
+              <input type="hidden" name="user_id" value="{{ user.id }}">
+              <input type="hidden" name="new_status" value="0">
+              <button type="submit" class="btn btn-sm btn-danger btn-xs">Remove</button>
+            </form>
             {% else %}
-            <a href="/activate/{{user.id}}" class="btn btn-sm btn-success btn-xs">Activate</a>
+            <form method="post" style="display:inline;">
+              {% csrf_token %}
+              <input type="hidden" name="user_id" value="{{ user.id }}">
+              <input type="hidden" name="new_status" value="1">
+              <button type="submit" class="btn btn-sm btn-success btn-xs">Activate</button>
+            </form>
             {% endif %}
           </td>
         </tr>
