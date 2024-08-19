@@ -1,0 +1,47 @@
+{% extends "base.html" %}{% load static %} {% block title %}User Details 
+{% endblock %} {% block style %}
+<link rel="stylesheet" href="{% static 'css/read_user.css' %}" />
+  {%endblock%}
+{% block content %}
+<h2>User Details</h2>
+<table>
+  <tr>
+    <th>First Name</th>
+    <td>{{ user.first_name }}</td>
+  </tr>
+  <tr>
+    <th>Last Name</th>
+    <td>{{ user.last_name }}</td>
+  </tr>
+  <tr>
+    <th>Email</th>
+    <td>{{ user.email }}</td>
+  </tr>
+  <tr>
+    <th>Role</th>
+    <td>{{ user.role }}</td>
+  </tr>
+  <tr>
+    <th>Last Edit</th>
+    <td>{{ user.last_edit }}</td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>{{ user.status|yesno:"Active,Inactive" }}</td>
+  </tr>
+</table>
+{% if profile_pic %}
+<p><strong>Profile Picture:</strong></p>
+<!-- Display the image using the base64 encoded string -->
+<img src="data:image/jpeg;base64,{{ profile_pic }}" alt="Profile Picture" />
+<p>
+  <a href="" class="btn btn-primary">Edit</a>
+  <a href="" class="btn btn-danger">Remove</a>
+  <a href="" class="btn btn-warning">Change Password</a>
+</p>
+{% endif %} {% endblock %}
+
+
+{% comment %} {% url 'update_user' user.id %}
+{% url 'remove_user' user.id %}
+{% url 'change_password' user.id %} {% endcomment %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/manage_user.css' %}" />
+{%endblock%} 
+
+{% block content %}
+  <h1>User Management</h1>
+  <a href="{% url 'add_user' %}">Add User</a>
+  <a href="{% url 'read_all_users' %}">Read All Users</a>
+  <!-- Add links to other functionalities as needed -->
+{% endblock %}
