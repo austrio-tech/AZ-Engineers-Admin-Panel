@@ -1,6 +1,7 @@
 import base64
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
+from .customWrappers import tryIt # type: ignore
 from .models import User
 from .forms import UserForm, UserUpdateForm
 
@@ -26,22 +27,10 @@ def add_user(request):
     return render(request, 'add_user.html', {'form': form})
 
 
-# def update_user(request, user_id):
-#     user = get_object_or_404(User, id=user_id)
-#     if request.method == 'POST':
-#         form = UserForm(request.POST, request.FILES, instance=user)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('manage_users')
-#     else:
-#         form = UserForm(instance=user)
-#     return render(request, 'update_user.html', {'form': form})
-
-
 def update_user(request, user_id):
-    user = get_object_or_404(User, id=user_id)
+    user = tryIt(get_object_or_404, User, id=user_id)
     profile_pic =None
-    if user.profile_pic:
+    if user and user.profile_pic:
         # Encode the binary data to base64
         profile_pic = base64.b64encode(user.profile_pic).decode('utf-8')
 
@@ -61,19 +50,21 @@ def update_user(request, user_id):
 
 
 
-def read_user(request, user_id):
+def read_user(request, user_id=None):
+    if user_id is None:
+        return render(request, 'read_user.html', {"user": None})
     if request.method == "POST":
         user_id = request.POST.get('user_id')
         new_status = request.POST.get('new_status')
-        user = get_object_or_404(User, id=user_id)
+        user = tryIt(get_object_or_404, User, id=user_id)
         user.status = int(new_status)
         user.save()
         return redirect('read_user', user_id)
     
-    user = get_object_or_404(User, id=user_id)
+    user = tryIt(get_object_or_404, User, id=user_id)
     profile_pic = None
     
-    if user.profile_pic:
+    if user and user.profile_pic:
         # Encode the binary data to base64
         profile_pic = base64.b64encode(user.profile_pic).decode('utf-8')
     
@@ -83,7 +74,7 @@ def read_all_users(request):
     if request.method == "POST":
         user_id = request.POST.get('user_id')
         new_status = request.POST.get('new_status')
-        user = get_object_or_404(User, id=user_id)
+        user = tryIt(get_object_or_404, User, id=user_id)
         user.status = int(new_status)
         user.save()
         return redirect('read_all_users')  # Reload the same page after updating status
@@ -92,16 +83,16 @@ def read_all_users(request):
     return render(request, 'read_all_users.html', {'users': users})
 
 
-def search_user(request):
-    search_query = request.GET.get('search_query', None)
-    user = None
+# def search_user(request):
+#     search_query = request.GET.get('search_query', None)
+#     user = None
 
-    if search_query:
-        try:
-            # Try to search by ID first
-            user = User.objects.get(id=int(search_query))
-        except (ValueError, User.DoesNotExist):
-            # If not found by ID, search by name (first name or last name)
-            user = User.objects.filter(Q(first_name__icontains=search_query) | Q(last_name__icontains=search_query)).first()
+#     if search_query:
+#         try:
+#             # Try to search by ID first
+#             user = User.objects.get(id=int(search_query))
+#         except (ValueError, User.DoesNotExist):
+#             # If not found by ID, search by name (first name or last name)
+#             user = User.objects.filter(Q(first_name__icontains=search_query) | Q(last_name__icontains=search_query)).first()
 
-    return render(request, 'search_user.html', {'user': user, 'search_query': search_query})
+#     return render(request, 'search_user.html', {'user': user, 'search_query': search_query})

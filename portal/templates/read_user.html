@@ -1,9 +1,13 @@
-{% extends "base.html" %}{% load static %}
+{% extends "search_user.html" %}{% load static %}
 {% block title %}User Details {% endblock %} {% block style %}
 <link rel="stylesheet" href="{% static 'css/read_user.css' %}" />
-{%endblock%} {% block content %}
+{%endblock%} {% block userblock %}
+{% if user %}
 <h2>User Details</h2>
-<table>
+<table><tr>
+  <th>Id</th>
+  <td>{{ user.id }}</td>
+</tr>
   <tr>
     <th>First Name</th>
     <td>{{ user.first_name }}</td>
@@ -50,5 +54,8 @@
 </form>
 {% endif %}
 <a href="" class="btn btn-sm btn-warning">Change Password</a>
- {% endblock %} {% comment %} {% url 'update_user' user.id %} {% url
+{%else%}
+<p>No user found</p>
+{% endif %}
+{% endblock %} {% comment %} {% url 'update_user' user.id %} {% url
 'remove_user' user.id %} {% url 'change_password' user.id %} {% endcomment %}
