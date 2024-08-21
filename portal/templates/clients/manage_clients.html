@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% load static %}
+{% block style %}
+{% comment %} <link rel="stylesheet" href="{% static 'css/manage_user.css' %}" /> {% endcomment %}
+{%endblock%} 
+
+{% block clientOptions %}
+<ul class="inner-list-sidebar">
+  <li><a href="/read-all-clients">All Clients</a></li>
+  <li><a href="/read-client">Search Client</a></li>
+  <li><a href="/add-client">Add Client</a></li>
+</ul>
+{% endblock %}

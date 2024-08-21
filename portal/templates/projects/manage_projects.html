@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% load static %}
+{% block style %}
+{% comment %} <link rel="stylesheet" href="{% static 'css/manage_user.css' %}" /> {% endcomment %}
+{%endblock%} 
+
+{% block projectOptions %}
+<ul class="inner-list-sidebar">
+  <li><a href="/read-all-projects">All Projects</a></li>
+  <li><a href="/read-project">Search Project</a></li>
+  <li><a href="/add-project">Add Project</a></li>
+</ul>
+{% endblock %}

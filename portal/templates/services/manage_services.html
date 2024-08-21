@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% load static %}
+{% block style %}
+{% comment %} <link rel="stylesheet" href="{% static 'css/manage_user.css' %}" /> {% endcomment %}
+{%endblock%} 
+
+{% block servicesOptions %}
+<ul class="inner-list-sidebar">
+  <li><a href="/read-all-services">All Services</a></li>
+  <li><a href="/read-service">Search Service</a></li>
+  <li><a href="/add-service">Add Service</a></li>
+</ul>
+{% endblock %}

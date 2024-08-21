@@ -18,7 +18,7 @@ class User(models.Model):
 
 class Award(models.Model):
     title = models.CharField(max_length=40)
-    img = models.BinaryField(null=True, blank=True)
+    img = models.BinaryField(null=True, blank=True, editable=True)
     awarded_on = models.IntegerField()  # Assuming you only need the year, otherwise use DateField()
     last_edit = models.DateTimeField(auto_now=True)
     status = models.BooleanField(default=True)
@@ -32,7 +32,7 @@ class Award(models.Model):
 
 class Client(models.Model):
     name = models.CharField(max_length=40)
-    logo_img = models.BinaryField(null=True, blank=True)
+    logo_img = models.BinaryField(null=True, blank=True, editable=True)
     description = models.TextField(null=True, blank=True)
     last_edit = models.DateTimeField(auto_now=True)
     status = models.BooleanField(default=True)
@@ -66,7 +66,7 @@ class Project(models.Model):
     value = models.FloatField()  # Assuming value is in OMR as you mentioned
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
-    prime_img = models.BinaryField(null=True, blank=True)
+    prime_img = models.BinaryField(null=True, blank=True, editable=True)
     last_edit = models.DateTimeField(auto_now=True)
     status = models.BooleanField(default=True)
 
@@ -78,7 +78,7 @@ class Project(models.Model):
 
 class Gallery(models.Model):
     title = models.CharField(max_length=100)
-    img = models.BinaryField(null=True, blank=True)
+    img = models.BinaryField(null=True, blank=True, editable=True)
     last_edit = models.DateTimeField(auto_now=True)
     status = models.BooleanField(default=True)
 

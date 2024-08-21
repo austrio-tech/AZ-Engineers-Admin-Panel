@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% load static %}
+{% block style %}
+{% comment %} <link rel="stylesheet" href="{% static 'css/manage_user.css' %}" /> {% endcomment %}
+{%endblock%} 
+
+{% block awardOptions %}
+<ul class="inner-list-sidebar">
+  <li><a href="/read-all-awards">All Awards</a></li>
+  <li><a href="/read-award">Search Award</a></li>
+  <li><a href="/add-award">Add Award</a></li>
+</ul>
+{% endblock %}
