@@ -1,18 +1,19 @@
+<!--add_user.html-->
 {% extends "users/manage_users.html" %}{% load static %}
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/add_user.css' %}" />
 {%endblock%} 
 
-{% block title %}Add User{% endblock %} 
+{% block title %}Add Award{% endblock %} 
 
 {% block content %}
-<h2>Add a New User</h2>
+<h2>Add a New Award</h2>
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %} {{ form.as_p }} 
   <p>
-    <label for="id_profile_pic">Profile Picture:</label>
+    <label for="id_profile_pic">Image:</label>
     <input type="file" name="profile_pic" id="id_profile_pic" accept="image/*">
   </p>
-  <button type="submit" class="btn btn-success">Add User</button>
+  <button type="submit" class="btn btn-success">Add Award</button>
 </form>
 {% endblock %}

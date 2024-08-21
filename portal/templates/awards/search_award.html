@@ -1,0 +1,29 @@
+{% extends "awards/manage_awards.html" %}{% load static %}
+{% block title %}Search Award{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/search_award.css' %}" />
+{% endblock %}
+
+{% block content %}
+<h2>Search Award</h2>
+<form method="get" id="searchForm">
+  <p>
+    <label for="search_award">Search by ID or Title:</label>
+    <input type="text" name="search_award" id="search_award" class="searchInput" placeholder="Enter Award ID or Title" />
+  </p>
+  <button type="submit" class="btn btn-primary">Search</button>
+</form>
+<script>
+    document.getElementById('searchForm').onsubmit = function(event) {
+        event.preventDefault();
+        var query = document.getElementById('search_award').value;
+        if (query) {
+            window.location.href = '/award/read/' + query;
+        }
+    };
+</script>
+
+{% block awardblock %} {% endblock %}
+
+{% endblock %}

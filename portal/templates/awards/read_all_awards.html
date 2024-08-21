@@ -1,0 +1,63 @@
+{% extends "awards/manage_awards.html" %}{% load static %}
+{% load custom_filters %}  
+{% block title %}All Awards{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/read_all_awards.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <h2>All Awards</h2>
+  {% if awards %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Image</th>
+          <th>Title</th>
+          <th>Awarded On</th>
+          <th>Last Edit</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for award in awards %}
+        <tr onclick="window.location.href = '/award/read/{{award.id}}';">
+          <td>{{ award.id }}</td>
+          <td>
+            {% if award.img %}
+              <img src="data:image/jpeg;base64,{{ award.img|b64encode }}" alt="Award Image" class="award-img-thumbnail">
+            {% else %}
+              <img src="{% static 'imgs/default_award.png' %}" alt="Default Award Image" class="award-img-thumbnail">
+            {% endif %}
+          </td>
+          <td>{{ award.title }}</td>
+          <td>{{ award.awarded_on }}</td>
+          <td>{{ award.last_edit }}</td>
+          <td>{{ award.status|yesno:"Active,Inactive" }}</td>
+          <td>
+            <a href='/award/update/{{award.id}}' class="btn btn-sm btn-primary btn-xs">Edit</a>
+            {% if award.status == 1 %}
+            <form method="post" style="display:inline;">
+              {% csrf_token %}
+              <input type="hidden" name="award_id" value="{{ award.id }}">
+              <input type="hidden" name="new_status" value="0">
+              <button type="submit" class="btn btn-sm btn-danger btn-xs">Remove</button>
+            </form>
+            {% else %}
+            <form method="post" style="display:inline;">
+              {% csrf_token %}
+              <input type="hidden" name="award_id" value="{{ award.id }}">
+              <input type="hidden" name="new_status" value="1">
+              <button type="submit" class="btn btn-sm btn-success btn-xs">Activate</button>
+            </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No awards found.</p>
+  {% endif %}
+{% endblock %}
