@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/manage_user.css' %}" />
+{%endblock%} 
+
+{% block userOptions %}
+<ul class="inner-list-sidebar">
+  <li><a href="/read-all">All Users</a></li>
+  <li><a href="/read">Search User</a></li>
+  <li><a href="/add">Add User</a></li>
+</ul>
+{% endblock %}

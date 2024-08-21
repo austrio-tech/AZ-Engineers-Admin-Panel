@@ -1,6 +1,6 @@
 import base64
 from django.shortcuts import render, get_object_or_404, redirect
-from django.db.models import Q
+# from django.db.models import Q
 from .customWrappers import tryIt # type: ignore
 from .models import User
 from .forms import UserForm, UserUpdateForm
@@ -9,7 +9,7 @@ def home(request):
     return render(request, 'home.html')
 
 def manage_users(request):
-    return render(request, 'manage_users.html')
+    return render(request, 'users/manage_users.html')
 
 def add_user(request):
     if request.method == 'POST':
@@ -24,7 +24,7 @@ def add_user(request):
     else:
         form = UserForm()
     
-    return render(request, 'add_user.html', {'form': form})
+    return render(request, 'users/add_user.html', {'form': form})
 
 
 def update_user(request, user_id):
@@ -46,13 +46,13 @@ def update_user(request, user_id):
     else:
         form = UserUpdateForm(instance=user)
 
-    return render(request, 'update_user.html', {'form': form, 'user': user, 'profile_pic': profile_pic})
+    return render(request, 'users/update_user.html', {'form': form, 'user': user, 'profile_pic': profile_pic})
 
 
 
 def read_user(request, user_id=None):
     if user_id is None:
-        return render(request, 'read_user.html', {"user": None})
+        return render(request, 'users/read_user.html', {"user": None})
     if request.method == "POST":
         user_id = request.POST.get('user_id')
         new_status = request.POST.get('new_status')
@@ -68,7 +68,7 @@ def read_user(request, user_id=None):
         # Encode the binary data to base64
         profile_pic = base64.b64encode(user.profile_pic).decode('utf-8')
     
-    return render(request, 'read_user.html', {'user': user, 'profile_pic': profile_pic})
+    return render(request, 'users/read_user.html', {'user': user, 'profile_pic': profile_pic})
 
 def read_all_users(request):
     if request.method == "POST":
@@ -80,7 +80,7 @@ def read_all_users(request):
         return redirect('read_all_users')  # Reload the same page after updating status
 
     users = User.objects.all()
-    return render(request, 'read_all_users.html', {'users': users})
+    return render(request, 'users/read_all_users.html', {'users': users})
 
 
 # def search_user(request):

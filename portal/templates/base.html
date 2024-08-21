@@ -36,15 +36,12 @@
       <ul class="outer-list-sidebar">
         <li><a href="">Dashboard</a></li>
         <li><a href="/manage_user">Manage Users</a></li>
-        <ul class="inner-list-sidebar">
-          <li><a href="/read-all">All Users</a></li>
-          <li><a href="/read">Search User</a></li>
-          <li><a href="/add">Add User</a></li>
-          {% comment %} <li><a href="/update">Update User</a></li> {% endcomment %}
-          {% comment %} <li><a href="/remove">Remove User</a></li> {% endcomment %}
-        </ul>
-        <li><a href="">Awards</a></li>
-        <li><a href="">Settings</a></li>
+          {%block userOptions%}{%endblock%}
+         
+          <li><a href="">Awards</a></li>
+          {%block awardOptions%}{%endblock%}
+          <li><a href="">Settings</a></li>
+          {%block settingsOptions%}{%endblock%}
       </ul>
     </div>
     <div class="content">{% block content %}{% endblock %}</div>
