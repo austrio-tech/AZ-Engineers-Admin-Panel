@@ -25,7 +25,7 @@
       </thead>
       <tbody>
         {% for user in users %}
-        <tr onclick="window.location.href = '/read/{{user.id}}';">
+        <tr onclick="window.location.href = '/read-user/{{user.id}}';">
           <td>{{ user.id }}</td>
           <td>
             {% if user.profile_pic %}
@@ -41,7 +41,7 @@
           <td>{{ user.last_edit }}</td>
           <td>{{ user.status|yesno:"Active,Inactive" }}</td>
           <td>
-            <a href='/update/{{user.id}}' class="btn btn-sm btn-primary btn-xs">Edit</a>
+            <a href='/update-user/{{user.id}}' class="btn btn-sm btn-primary btn-xs">Edit</a>
             {% if user.status == 1 %}
             <form method="post" style="display:inline;">
               {% csrf_token %}

@@ -1,8 +1,9 @@
+<!-- search_award.html -->
 {% extends "awards/manage_awards.html" %}{% load static %}
 {% block title %}Search Award{% endblock %}
 
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/search_award.css' %}" />
+<link rel="stylesheet" href="{% static 'css/search_user.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -19,7 +20,7 @@
         event.preventDefault();
         var query = document.getElementById('search_award').value;
         if (query) {
-            window.location.href = '/award/read/' + query;
+            window.location.href = '/read-award/' + query;
         }
     };
 </script>

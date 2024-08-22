@@ -38,7 +38,7 @@
 <p><strong>Profile Picture:</strong></p>
 <!-- Display the image using the base64 encoded string -->
 <img src="data:image/jpeg;base64,{{ profile_pic }}" alt="Profile Picture" /> {% endif %}
-<a href="/update/{{user.id}}" class="btn btn-sm btn-primary btn-xs">Edit</a>
+<a href="/update-user/{{user.id}}" class="btn btn-sm btn-primary btn-xs">Edit</a>
 {% if user.status == 1 %}
 <form method="post" style="display:inline;">
   {% csrf_token %}

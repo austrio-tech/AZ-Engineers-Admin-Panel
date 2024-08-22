@@ -1,8 +1,9 @@
+<!-- read_all_awards.html -->
 {% extends "awards/manage_awards.html" %}{% load static %}
 {% load custom_filters %}  
 {% block title %}All Awards{% endblock %}
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/read_all_awards.css' %}" />
+<link rel="stylesheet" href="{% static 'css/read_all_users.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -22,13 +23,13 @@
       </thead>
       <tbody>
         {% for award in awards %}
-        <tr onclick="window.location.href = '/award/read/{{award.id}}';">
+        <tr onclick="window.location.href = '/read-award/{{award.id}}';">
           <td>{{ award.id }}</td>
           <td>
             {% if award.img %}
-              <img src="data:image/jpeg;base64,{{ award.img|b64encode }}" alt="Award Image" class="award-img-thumbnail">
+              <img src="data:image/jpeg;base64,{{ award.img|b64encode }}" alt="Award Image" class="img-all">
             {% else %}
-              <img src="{% static 'imgs/default_award.png' %}" alt="Default Award Image" class="award-img-thumbnail">
+              <img src="{% static 'imgs/default_user.png' %}" alt="Default Award Image" class="img-all">
             {% endif %}
           </td>
           <td>{{ award.title }}</td>
@@ -36,7 +37,7 @@
           <td>{{ award.last_edit }}</td>
           <td>{{ award.status|yesno:"Active,Inactive" }}</td>
           <td>
-            <a href='/award/update/{{award.id}}' class="btn btn-sm btn-primary btn-xs">Edit</a>
+            <a href='/update-award/{{award.id}}' class="btn btn-sm btn-primary btn-xs">Edit</a>
             {% if award.status == 1 %}
             <form method="post" style="display:inline;">
               {% csrf_token %}

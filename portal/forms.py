@@ -21,7 +21,7 @@ class AwardForm(forms.ModelForm):
 
     class Meta:
         model = Award
-        fields = ['title', 'img', 'awarded_on', 'status']
+        fields = ['title', 'img', 'awarded_on']
 
     def save(self, commit=True):
         instance = super().save(commit=False)
@@ -37,7 +37,7 @@ class ClientForm(forms.ModelForm):
 
     class Meta:
         model = Client
-        fields = ['name', 'logo_img', 'description', 'status']
+        fields = ['name', 'logo_img', 'description']
 
     def save(self, commit=True):
         instance = super().save(commit=False)
@@ -51,7 +51,7 @@ class ClientForm(forms.ModelForm):
 class ProjectCategoryForm(forms.ModelForm):
     class Meta:
         model = ProjectCategory
-        fields = ['title', 'description', 'status']
+        fields = ['title', 'description']
 
 # Project Form
 class ProjectForm(forms.ModelForm):
@@ -61,7 +61,7 @@ class ProjectForm(forms.ModelForm):
         model = Project
         fields = [
             'title', 'description', 'category', 'client', 'contractor', 
-            'value', 'start_date', 'end_date', 'prime_img', 'status'
+            'value', 'start_date', 'end_date', 'prime_img'
         ]
         widgets = {
             'start_date': forms.DateInput(attrs={'type': 'date'}),
@@ -82,7 +82,7 @@ class GalleryForm(forms.ModelForm):
 
     class Meta:
         model = Gallery
-        fields = ['title', 'img', 'status']
+        fields = ['title', 'img']
 
     def save(self, commit=True):
         instance = super().save(commit=False)
@@ -96,4 +96,4 @@ class GalleryForm(forms.ModelForm):
 class ProjectGalleryForm(forms.ModelForm):
     class Meta:
         model = ProjectGallery
-        fields = ['project', 'gallery', 'status']
+        fields = ['project', 'gallery']

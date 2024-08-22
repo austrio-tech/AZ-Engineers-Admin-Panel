@@ -41,7 +41,7 @@ def update_user(request, user_id):
                 # Read the uploaded file as binary data
                 user.profile_pic = request.FILES['profile_pic'].read()
             user.save() 
-            return redirect('update_user')  # Replace with your actual success URL
+            return redirect('read_user', user_id)  # Replace with your actual success URL
     else:
         form = UserUpdateForm(instance=user)
 
@@ -94,9 +94,7 @@ def add_award(request):
         form = AwardForm(request.POST, request.FILES)
         if form.is_valid():
             award = form.save(commit=False)  
-            if 'img' in request.FILES:
-                # Read the uploaded file as binary data
-                award.img = request.FILES['img'].read()
+            # if 'img' in request..est.FILES['img'].read()
             award.save() 
             return redirect('add_award')  # Redirect to a success page or another view
     else:
@@ -115,11 +113,11 @@ def update_award(request, award_id):
         form = AwardForm(request.POST, request.FILES, instance=award)
         if form.is_valid():
             award = form.save(commit=False)  # Create the Award instance without saving to the database yet
-            if 'img' in request.FILES:
-                # Read the uploaded file as binary data
-                award.img = request.FILES['img'].read()
+            # if 'img' in request.FILES:
+            #     # Read the uploaded file as binary data
+            #     award.img = request.FILES['img'].read()
             award.save() 
-            return redirect('update_award')  # Replace with your actual success URL
+            return redirect('read_award', award_id)  # Replace with your actual success URL
     else:
         form = AwardForm(instance=award)
 
@@ -139,9 +137,9 @@ def read_award(request, award_id=None):
     award = tryIt(get_object_or_404, Award, id=award_id)
     img = None
     
-    if award and award.img:
-        # Encode the binary data to base64
-        img = base64.b64encode(award.img).decode('utf-8')
+    # if award and award.img:
+    #     # Encode the binary data to base64
+    #     img = base64.b64encode(award.img).decode('utf-8')
     
     return render(request, 'awards/read_award.html', {'award': award, 'img': img})
 

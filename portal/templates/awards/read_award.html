@@ -1,7 +1,74 @@
+{% extends "awards/search_award.html" %}
+{% load static %}
+{% load custom_filters %}  
+
+{% block title %}Award Details{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/read_user.css' %}" />
+{% endblock %}
+
+{% block awardblock %}
+{% if award %}
+<h2>Award Details</h2>
+<div class="mycontainer">
+  <div class="mydetails">
+    <table>
+      <tr>
+        <th>Id</th>
+        <td>{{ award.id }}</td>
+      </tr>
+      <tr>
+        <th>Title</th>
+        <td>{{ award.title }}</td>
+      </tr>
+      <tr>
+        <th>Awarded On</th>
+        <td>{{ award.awarded_on }}</td>
+      </tr>
+      <tr>
+        <th>Last Edit</th>
+        <td>{{ award.last_edit }}</td>
+      </tr>
+      <tr>
+        <th>Status</th>
+        <td>{{ award.status|yesno:"Active,Inactive" }}</td>
+      </tr>
+    </table>
+    <a href="/update-award/{{award.id}}" class="btn btn-sm btn-primary btn-xs">Edit</a>
+    {% if award.status == 1 %}
+    <form method="post" style="display:inline;">
+      {% csrf_token %}
+      <input type="hidden" name="award_id" value="{{ award.id }}">
+      <input type="hidden" name="new_status" value="0">
+      <button type="submit" class="btn btn-sm btn-danger btn-xs">Remove</button>
+    </form>
+    {% else %}
+    <form method="post" style="display:inline;">
+      {% csrf_token %}
+      <input type="hidden" name="award_id" value="{{ award.id }}">
+      <input type="hidden" name="new_status" value="1">
+      <button type="submit" class="btn btn-sm btn-success btn-xs">Activate</button>
+    </form>
+    {% endif %}
+  </div>
+  {% if award.img %}
+  <div class="myimage">
+    <img src="data:image/jpeg;base64,{{ award.img|b64encode }}" alt="Award Image" />
+  </div>
+  {% endif %}
+</div>
+{% else %}
+<p>No award found</p>
+{% endif %}
+{% endblock %}
+
+{% comment %} <!-- read_award.html -->
 {% extends "awards/search_award.html" %}{% load static %}
+{% load custom_filters %}  
 {% block title %}Award Details{% endblock %}
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/read_award.css' %}" />
+<link rel="stylesheet" href="{% static 'css/read_user.css' %}" />
 {% endblock %}
 {% block awardblock %}
 {% if award %}
@@ -32,7 +99,7 @@
 <p><strong>Image:</strong></p>
 <img src="data:image/jpeg;base64,{{ award.img|b64encode }}" alt="Award Image" />
 {% endif %}
-<a href="/award/update/{{award.id}}" class="btn btn-sm btn-primary btn-xs">Edit</a>
+<a href="/update-award/{{award.id}}" class="btn btn-sm btn-primary btn-xs">Edit</a>
 {% if award.status == 1 %}
 <form method="post" style="display:inline;">
   {% csrf_token %}
@@ -51,4 +118,4 @@
 {% else %}
 <p>No award found</p>
 {% endif %}
-{% endblock %}
+{% endblock %} {% endcomment %}

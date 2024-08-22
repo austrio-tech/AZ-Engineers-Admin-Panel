@@ -1,9 +1,10 @@
+<!-- update_award.html -->
 {% extends "awards/manage_awards.html" %}{% load static %}
 
 {% block title %}Update Award{% endblock %} 
 
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/update_award.css' %}" />
+<link rel="stylesheet" href="{% static 'css/update_user.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -11,14 +12,14 @@
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %} 
   {{ form.as_p }}
-
+{% comment %} 
   <p>
     <label for="id_img">Image:</label>
     {% if award.img %}
     <img class="award_edit" src="data:image/jpeg;base64,{{ award.img|b64encode }}" alt="Award Image">
   {% endif %}
     <input type="file" name="img" id="id_img" accept="image/*"/>
-  </p>
+  </p> {% endcomment %}
   
   <button type="submit" class="btn btn-primary">Update Award</button>
 </form>
